@@ -6,7 +6,14 @@ public class PetShop {
     private static ArrayList<Tutor> tutores;
 
     public static void main(String[] args) {
-        // controla menu (Scanner)
+        System.out.println("***** ESCOLHER UMA OPÇÃO *****\n");
+        System.out.println("c: cadastrar tutor+pet(s)\r");
+        System.out.println("i: imprimir cadastro\r");
+        System.out.println("b: buscar pets por codigo tutor");
+        System.out.println("e: excluir pets por codigo tutor\r");
+        System.out.println("x: encerrar.\r");
+        System.out.println("Opção escolhida:");
+
     }
 
     public static void popularCadastro() {
