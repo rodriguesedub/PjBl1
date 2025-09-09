@@ -1,0 +1,88 @@
+📌 Classe Pet
+Atributos:
+
+private String nome;
+
+private String tipo; (ex.: cão, gato, papagaio etc.)
+
+Métodos:
+
+Construtor: public Pet(String nome, String tipo)
+
+Getters/Setters:
+
+getNome(), setNome(String nome)
+
+getTipo(), setTipo(String tipo)
+
+toString() → retorna string formatada:
+" - Nome do pet: Rex; Tipo: Cão."
+
+📌 Classe Tutor
+Atributos:
+
+private int cod; (código sequencial gerado automaticamente)
+
+private String nome;
+
+private String endereco;
+
+private LocalDate dataNasc;
+
+private ArrayList<Pet> pets;
+
+Métodos:
+
+Construtor: public Tutor(int cod, String nome, LocalDate dataNasc, String endereco)
+
+Getters/Setters:
+
+getCod(), getNome(), getEndereco(), getDataNasc()
+
+getIdade() → calcula idade com Period.between(dataNasc, LocalDate.now())
+
+Manipulação de pets:
+
+public void addPet(Pet p)
+
+public void removePet(Pet p) (opcional)
+
+toString() → retorna os dados formatados:
+
+Cod. do tutor: 1
+  Nome...........: Maria Lopes
+  Data nascimento: 22/02/1988 (36 anos)
+  Endereço.......: Av. Sergipe, 421
+  Relação de Pets:
+  - Nome do pet: Loro; Tipo: Papagaio.
+
+📌 Classe PetShop (classe principal com main)
+Atributos:
+
+private static ArrayList<Tutor> tutores;
+
+Métodos:
+
+public static void main(String[] args) → controla menu (Scanner).
+
+public static void popularCadastro() → insere tutores e pets iniciais.
+
+public static int geraCodTutor() → gera código sequencial automático.
+
+public static void cadastrarTutorPets() → cadastra tutor + seus pets.
+
+public static void imprimirCadastro() → percorre lista de tutores, imprime toString().
+
+public static void buscarPorCodigo(int cod) → procura tutor pelo código e exibe.
+
+public static void excluirPorCodigo(int cod) → remove tutor e seus pets.
+
+private static boolean validaData(int d, int m, int a) → valida datas de nascimento.
+
+👉 Assim, o fluxo é:
+
+Pet representa apenas o animal.
+
+Tutor agrupa seus dados + lista de pets.
+
+PetShop gerencia todos os tutores (cadastro principal).
