@@ -3,7 +3,7 @@ public class Pet{
     private String tipo;
     public Pet(String nome, String tipo){
         this.nome = nome;
-        this.idade = idade;
+        this.tipo = tipo;
     }
 
     public String getNome(){
@@ -14,12 +14,12 @@ public class Pet{
         return tipo;
     }
 
-    public String setNome(String nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
 
-    public String setTipo(String tipo){
-        this.tipo = tipo
+    public void setTipo(String tipo){
+        this.tipo = tipo;
     }
 
     public String toString(){
