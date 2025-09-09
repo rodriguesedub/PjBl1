@@ -1,4 +1,4 @@
-public class Dependente{
+public class Pet{
     private String nome;
     private String tipo;
     public Pet(String nome, String tipo){
