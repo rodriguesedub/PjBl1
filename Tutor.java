@@ -54,7 +54,6 @@ public class Tutor{
             text += "  Nenhum pet cadastrado.";
         } else {
             for (Pet pet : pets){
-                // Assumindo que a classe Pet tem os métodos getNome() and getTipo()
                 text += "  - Nome do pet: " + pet.getNome() + "; Tipo: " + pet.getTipo() + ".\n";
             }
         }
