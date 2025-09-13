@@ -1,28 +1,105 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PetShop {
     
-    private static ArrayList<Tutor> tutores;
+    private static ArrayList<Tutor> tutores = new ArrayList<>();
+    private static int contadorCod = 1;
 
     public static void main(String[] args) {
-        System.out.println("***** ESCOLHER UMA OPÇÃO *****\n");
-        System.out.println("c: cadastrar tutor+pet(s)\r");
-        System.out.println("i: imprimir cadastro\r");
-        System.out.println("b: buscar pets por codigo tutor");
-        System.out.println("e: excluir pets por codigo tutor\r");
-        System.out.println("x: encerrar.\r");
-        System.out.println("Opção escolhida:");
 
+        popularCadastro();
+
+        Scanner sc = new Scanner(System.in);
+        char op;
+
+        do {
+            System.out.println("\n***** ESCOLHER UMA OPÇÃO *****");
+            System.out.println("c: cadastrar tutor+pet(s)");
+            System.out.println("i: imprimir cadastro");
+            System.out.println("b: buscar pets por codigo tutor");
+            System.out.println("e: excluir pets por codigo tutor");
+            System.out.println("x: encerrar.");
+            System.out.print("Opção escolhida: ");
+            
+            op = sc.next().charAt(0);
+
+            switch (op) {
+                case 'c':
+                    cadastrarTutorPets();
+                    break;
+                case 'i':
+                    imprimirCadastro();
+                    break;
+                case 'b':
+                    System.out.print("Digite o código do tutor: ");
+                    int codBusca = sc.nextInt();
+                    buscarPorCodigo(codBusca);
+                    break;
+                case 'e':
+                    System.out.print("Digite o código do tutor: ");
+                    int codExcluir = sc.nextInt();
+                    excluirPorCodigo(codExcluir);
+                    break;
+                case 'x':
+                    System.out.println("Encerrando...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (op != 'x');
+
+        sc.close();
     }
 
+    public static LocalDate parseData(String dataStr) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(dataStr, fmt);
+    }
+
+
     public static void popularCadastro() {
-        // insere tutores e pets iniciais
+        System.out.println("Populando cadastro...");
+        System.out.println("Criando Tutor 1...");
+        // Tutor 1
+        Tutor t1 = new Tutor(
+            geraCodTutor(),
+            "Ana Beatriz",
+            parseData("15/08/2004"),
+            "Rua Guimaroes 184"
+        );
+        t1.add(new Pet("Rex", "Cachorro"));
+        t1.add(new Pet("Mimi", "Gato"));
+        tutores.add(t1);
+
+        System.out.println("Criando Tutor 2...");
+        // Tutor 2
+        Tutor t2 = new Tutor(
+            geraCodTutor(),
+            "Carlos Eduardo",
+            parseData("22/03/1988"),
+            "Av. Brasil 1020"
+        );
+        t2.add(new Pet("Bolt", "Cachorro"));
+        tutores.add(t2);
+
+        System.out.println("Criando Tutor 3...");
+        // Tutor 3
+        Tutor t3 = new Tutor(
+            geraCodTutor(),
+            "Fernanda Lima",
+            parseData("10/11/1995"),
+            "Rua das Flores 56"
+        );
+        t3.add(new Pet("Luna", "Gato"));
+        t3.add(new Pet("Nina", "Cachorro"));
+        tutores.add(t3);
     }
 
     public static int geraCodTutor() {
-        // gera código sequencial automático
-        return 0;
+        return contadorCod++;
     }
 
     public static void cadastrarTutorPets() {
