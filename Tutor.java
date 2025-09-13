@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.time.Period;
+
 public class Tutor{
     private int cod;
     private String nome;
@@ -8,11 +12,12 @@ public class Tutor{
     public Tutor(int cod, String nome, LocalDate dataNasc, String endereco){
         this.cod = cod;
         this.nome = nome;
-        this.dateNasc = dateNasc;
+        this.dataNasc = dataNasc;
         this.endereco = endereco;
+        this.pets = new ArrayList<>();
     }
 
-    public String getCod(){
+    public int getCod(){
         return cod;
     }
 
@@ -24,11 +29,11 @@ public class Tutor{
         return endereco;
     }
 
-    public String getDataNasc(){
+    public LocalDate getDataNasc(){
         return dataNasc;
     }
 
-    public String getIdade(){
+    public int getIdade(){
         return Period.between(dataNasc, LocalDate.now()).getYears();
     }
 
