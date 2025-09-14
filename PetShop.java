@@ -34,17 +34,12 @@ public class PetShop {
                     imprimirCadastro();
                     break;
                 case 'b':
-                    System.out.print("Digite o código do tutor: ");
-                    int codBusca = sc.nextInt();
-                    buscarPorCodigo(codBusca);
                     break;
                 case 'e':
-                    System.out.print("Digite o código do tutor: ");
-                    int codExcluir = sc.nextInt();
-                    excluirPorCodigo(codExcluir);
                     break;
                 case 'x':
-                    System.out.println("Encerrando...");
+                    System.out.println("--- Programa de cadastro encerrado ---\r");
+                    System.exit(1);
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -103,7 +98,14 @@ public class PetShop {
     }
 
     public static void cadastrarTutorPets() {
-        // cadastra tutor + seus pets
+        System.out.println("Digite nome do tutor (vazio encerra cadastro tutor): ");
+        System.out.println("Digite dia (dd), mês (mm) e ano (aaaa) de nascimento do tutor (separados por espaços) :\n");
+        System.out.println("Digite endereço do tutor/pet: :\n");
+        // TODO: Fazer o loop de cadastro
+        System.out.println("Digite nome do pet (vazio encerra cadastro pet):\n");
+        System.out.println("--- Pet cadastrado ---");
+
+
     }
 
     public static void imprimirCadastro() {
