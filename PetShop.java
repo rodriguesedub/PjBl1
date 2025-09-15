@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PetShop {
-    
+
     private static ArrayList<Tutor> tutores = new ArrayList<>();
     private static int contadorCod = 1;
 
@@ -23,7 +23,7 @@ public class PetShop {
             System.out.println("e: excluir pets por codigo tutor");
             System.out.println("x: encerrar.");
             System.out.print("Opção escolhida: ");
-            
+
             op = sc.next().charAt(0);
 
             switch (op) {
@@ -110,6 +110,10 @@ public class PetShop {
 
     public static void imprimirCadastro() {
         // percorre lista de tutores, imprime toString()
+        System.out.println("\nCadastro De Tutores & Pets:\n");
+        for (Tutor tutor : tutores) {
+            System.out.println(tutor.toString());
+        }
     }
 
     public static void buscarPorCodigo(int cod) {
@@ -122,6 +126,24 @@ public class PetShop {
 
     private static boolean validaData(int d, int m, int a) {
         // valida datas de nascimento
-        return false;
+        if (d < 1 || m < 1 || m > 12 || a < 1) {
+            System.out.println("Erro!, programa encerrado: Data Invalida");
+            return false;
+        }
+        int DiasNoMes;
+        if (m == 2) {
+            boolean bissexto = (a % 4 == 0 && a % 100 != 0) || (a % 400 == 0);
+            if (bissexto) {
+                DiasNoMes = 29;
+            }
+            else {
+                DiasNoMes = 28;
+            }
+        } else if (m == 4 || m == 6 || m == 9 || m == 11) {
+            DiasNoMes = 30;
+        } else {
+            DiasNoMes = 31;
+        }
+        return d <= DiasNoMes;
     }
 }
