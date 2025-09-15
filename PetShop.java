@@ -24,7 +24,7 @@ public class PetShop {
             System.out.println("x: encerrar.");
             System.out.print("Opção escolhida: ");
             
-            op = sc.next().charAt(0);
+            op = sc.nextLine();
 
             switch (op) {
                 case 'c':
@@ -98,11 +98,21 @@ public class PetShop {
     }
 
     public static void cadastrarTutorPets() {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Digite nome do tutor (vazio encerra cadastro tutor): ");
+        String nome = sc.nextLine();
+
         System.out.println("Digite dia (dd), mês (mm) e ano (aaaa) de nascimento do tutor (separados por espaços) :\n");
+
+
         System.out.println("Digite endereço do tutor/pet: :\n");
+
+
         // TODO: Fazer o loop de cadastro
         System.out.println("Digite nome do pet (vazio encerra cadastro pet):\n");
+
+
         System.out.println("--- Pet cadastrado ---");
 
 
