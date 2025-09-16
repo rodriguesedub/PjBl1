@@ -23,7 +23,7 @@ public class PetShop {
             System.out.println("e: excluir pets por codigo tutor");
             System.out.println("x: encerrar.");
             System.out.print("Opção escolhida: ");
-            op = sc.next().charAt(0);
+            op = sc.nextLine();
           
             switch (op) {
                 case 'c':
