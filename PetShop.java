@@ -34,6 +34,7 @@ public class PetShop {
                     imprimirCadastro();
                     break;
                 case 'b':
+                    buscarPorCodigo(sc);
                     break;
                 case 'e':
                     excluirPorCodigo(sc);
@@ -155,6 +156,7 @@ public class PetShop {
             System.out.println("Tutor com código " + cod + " não encontrado!");
         }
     }
+
 
     public static void excluirPorCodigo(Scanner sc) {
         System.out.print("Digite o codigo do tutor para excluir: ");
