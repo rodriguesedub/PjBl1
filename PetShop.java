@@ -119,11 +119,11 @@ public class PetShop {
          Tutor tutor = new Tutor(geraCodTutor(), nome, dataNasc, endereco);
          while (true) {
             System.out.println("Digite nome do pet (vazio encerra cadastro pet): ");
-            String nomePet = sc.nextLine().trim();
+            String nomePet = sc.nextLine();
             if (nomePet.isEmpty()) 
                break;
             System.out.print("Digite o tipo do pet: ");
-            String tipo = sc.nextLine().trim();
+            String tipo = sc.nextLine();
             Pet pet = new Pet(nomePet, tipo);
             tutor.add(pet);
             System.out.println("Pet cadastrado com sucesso!");
@@ -177,7 +177,9 @@ public class PetShop {
          System.out.println("Tutor "+cod+" nao existe!");
       }
    }
-
+   //validaData, verifica se o dia fornecido pelo usuario não é menor do que um, se o mes não é menor do que 1 ou maior do que 12,
+   //e se o ano nao é menor do que 1, caso algo nao bata ele encerra o cadastro. Ele confere se o ano é bissexto vendo se "a" é multiplo de 4 mas nao de 100, ou se é multiplo de 400.
+   //caso seja bissexto ele atualiza DiasNoMes de m == 2 para 29 (sem ser ano bissexto é 28), valida os dias dos meses (dependendo do mes tem 30 ou 31 dias)
    private static boolean validaData(int d, int m, int a) {
       if (d < 1 || m < 1 || m > 12 || a < 1) {
          System.out.println("Erro!, programa encerrado: Data Invalida");
