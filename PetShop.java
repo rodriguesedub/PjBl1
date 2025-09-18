@@ -140,6 +140,21 @@ public class PetShop {
 
     public static void buscarPorCodigo(int cod) {
         // procura tutor pelo código e exibe
+        System.out.print("Digite o codigo do tutor para buscar: ");
+      int cod = sc.nextInt();
+      sc.nextLine();
+      boolean encontrado = false;
+      for (Tutor tutor : tutores) {
+         if (tutor.getCod() == cod) {
+            System.out.println("\nTutor encontrado:");
+            System.out.println(tutor.toString());
+            encontrado = true;
+            break;
+         }
+      }
+      if (!encontrado) {
+         System.out.println("Tutor com código " + cod + " não encontrado!");
+      }
     }
 
     public static void excluirPorCodigo(Scanner sc) {
