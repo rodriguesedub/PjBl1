@@ -5,16 +5,17 @@ import java.util.Scanner;
 
 public class PetShop {
 
-   private static ArrayList<Tutor> tutores = new ArrayList<>();
-   private static int contadorCod = 1;
+   private static ArrayList<Tutor> tutores = new ArrayList<>(); // lista de tutores cadastrados
+   private static int contadorCod = 1; // contador para gerar códigos únicos de tutor
 
    public static void main(String[] args) {
    
-      popularCadastro();
+      popularCadastro(); // adiciona alguns tutores/pets iniciais
    
       Scanner sc = new Scanner(System.in);
       char op;
    
+      // menu principal
       do {
          System.out.println("\n***** ESCOLHER UMA OPCAO *****");
          System.out.println("c: cadastrar tutor+pet(s)");
@@ -51,77 +52,84 @@ public class PetShop {
       sc.close();
    }
 
+   // converte string "dd/MM/yyyy" em LocalDate
    public static LocalDate parseData(String dataStr) {
       DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
       return LocalDate.parse(dataStr, fmt);
    }
 
+   // cria tutores e pets fictícios para iniciar o programa
    public static void popularCadastro() {
       System.out.println("Populando cadastro...");
-      System.out.println("Criando Tutor 1...");
-      // Tutor 1
+      
       Tutor t1 = new Tutor(
          geraCodTutor(),
          "Ana Beatriz",
          parseData("15/08/2004"),
          "Rua Guimaroes 184"
-         );
+      );
       t1.add(new Pet("Rex", "Cachorro"));
       t1.add(new Pet("Mimi", "Gato"));
       tutores.add(t1);
-   
-      System.out.println("Criando Tutor 2...");
-      // Tutor 2
+
       Tutor t2 = new Tutor(
          geraCodTutor(),
          "Carlos Eduardo",
          parseData("22/03/1988"),
          "Av. Brasil 1020"
-         );
+      );
       t2.add(new Pet("Bolt", "Cachorro"));
       tutores.add(t2);
-   
-      System.out.println("Criando Tutor 3...");
-      // Tutor 3
+
       Tutor t3 = new Tutor(
          geraCodTutor(),
          "Fernanda Lima",
          parseData("10/11/1995"),
          "Rua das Flores 56"
-         );
+      );
       t3.add(new Pet("Luna", "Gato"));
       t3.add(new Pet("Nina", "Cachorro"));
       tutores.add(t3);
    }
 
+   // gera código único para cada tutor
    public static int geraCodTutor() {
       return contadorCod++;
    }
 
+   // cadastra tutores e seus pets via entrada do usuário
    public static void cadastrarTutorPets(Scanner sc) {
       while (true) {
          System.out.println("Digite nome do tutor (vazio encerra cadastro tutor): ");
          String nome = sc.nextLine();
          if (nome.isEmpty()) 
             break;
+
          System.out.print("Digite dia (dd), mes (mm) e ano (aaaa) de nascimento do tutor (separados por espacos): ");
          int d = sc.nextInt();
          int m = sc.nextInt();
          int a = sc.nextInt();
          sc.nextLine();
+
          if (!validaData(d, m, a)) {
             System.out.println("Erro! cadastro encerrado: data invalida");
             return;
          }
+
          LocalDate dataNasc = LocalDate.of(a, m, d);
+
          System.out.println("Digite endereco do tutor/pet: ");
          String endereco = sc.nextLine();
+
          Tutor tutor = new Tutor(geraCodTutor(), nome, dataNasc, endereco);
+
+         // loop para cadastrar pets
          while (true) {
             System.out.println("Digite nome do pet (vazio encerra cadastro pet): ");
             String nomePet = sc.nextLine();
             if (nomePet.isEmpty()) 
                break;
+
             System.out.print("Digite o tipo do pet: ");
             String tipo = sc.nextLine();
             Pet pet = new Pet(nomePet, tipo);
@@ -133,19 +141,21 @@ public class PetShop {
       }
    }
 
+   // imprime todos os tutores e seus pets
    public static void imprimirCadastro() {
-      // percorre lista de tutores, imprime toString()
       System.out.println("\nCadastro De Tutores & Pets:\n");
       for (Tutor tutor : tutores) {
          System.out.println(tutor.toString());
       }
    }
 
+   // busca tutor pelo código
    public static void buscarPorCodigo(Scanner sc) {
       System.out.print("Digite o codigo do tutor para buscar: ");
       int cod = sc.nextInt();
       sc.nextLine();
       boolean encontrado = false;
+
       for (Tutor tutor : tutores) {
          if (tutor.getCod() == cod) {
             System.out.println("\nTutor encontrado:");
@@ -159,13 +169,14 @@ public class PetShop {
       }
    }
 
-
+   // exclui tutor pelo código
    public static void excluirPorCodigo(Scanner sc) {
       System.out.print("Digite o codigo do tutor para excluir: ");
       int cod = sc.nextInt();
       sc.nextLine();
       boolean excluir = false;
-      for (int i = 0; i<tutores.size(); i++) {
+
+      for (int i = 0; i < tutores.size(); i++) {
          if (tutores.get(i).getCod() == cod) {
             tutores.remove(i);
             System.out.println("Tutor "+cod+" removido com sucesso!");
@@ -177,23 +188,16 @@ public class PetShop {
          System.out.println("Tutor "+cod+" nao existe!");
       }
    }
-   //validaData, verifica se o dia fornecido pelo usuario não é menor do que um, se o mes não é menor do que 1 ou maior do que 12,
-   //e se o ano nao é menor do que 1, caso algo nao bata ele encerra o cadastro. Ele confere se o ano é bissexto vendo se "a" é multiplo de 4 mas nao de 100, ou se é multiplo de 400.
-   //caso seja bissexto ele atualiza DiasNoMes de m == 2 para 29 (sem ser ano bissexto é 28), valida os dias dos meses (dependendo do mes tem 30 ou 31 dias)
+
+   // valida dia, mes e ano (inclui verificação de ano bissexto)
    private static boolean validaData(int d, int m, int a) {
       if (d < 1 || m < 1 || m > 12 || a < 1) {
-         System.out.println("Erro!, programa encerrado: Data Invalida");
          return false;
       }
       int DiasNoMes;
       if (m == 2) {
          boolean bissexto = (a % 4 == 0 && a % 100 != 0) || (a % 400 == 0);
-         if (bissexto) {
-            DiasNoMes = 29;
-         }
-         else {
-            DiasNoMes = 28;
-         }
+         DiasNoMes = bissexto ? 29 : 28;
       } else if (m == 4 || m == 6 || m == 9 || m == 11) {
          DiasNoMes = 30;
       } else {
