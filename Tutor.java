@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Tutor{
     private int cod;
@@ -46,16 +47,17 @@ public class Tutor{
     }
 
     public String toString(){
+        DateTimeFormatter dataBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String text = "Cod. do tutor: " + getCod() + "\n" +
-                   "Nome..........: " + getNome() + "\n" +
-                   "Data nascimento: " + getDataNasc() + " (" + getIdade() + " anos)\n" +
-                   "Endereço......: " + getEndereco() + "\n" +
+                   "Nome...........: " + getNome() + "\n" +
+                   "Data nascimento: " + getDataNasc().format(dataBR) + " (" + getIdade() + " anos)\n" +
+                   "Endereço.......: " + getEndereco() + "\n" +
                    "Relação de Pets:\n";
         if (pets.isEmpty()){
             text += "  Nenhum pet cadastrado.";
         } else {
             for (Pet pet : pets){
-                text += "  - Nome do pet: " + pet.getNome() + "; Tipo: " + pet.getTipo() + ".\n";
+                text += "- Nome do pet: " + pet.getNome() + "; Tipo: " + pet.getTipo() + ".\n";
             }
         }
         return text;

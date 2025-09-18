@@ -23,11 +23,12 @@ public class PetShop {
             System.out.println("e: excluir pets por codigo tutor");
             System.out.println("x: encerrar.");
             System.out.print("Opção escolhida: ");
-            op = sc.nextLine();
+            op = sc.next().toLowerCase().charAt(0);
+            sc.nextLine();
           
             switch (op) {
                 case 'c':
-                    cadastrarTutorPets();
+                    cadastrarTutorPets(sc);
                     break;
                 case 'i':
                     imprimirCadastro();
@@ -35,6 +36,7 @@ public class PetShop {
                 case 'b':
                     break;
                 case 'e':
+                    excluirPorCodigo(sc);
                     break;
                 case 'x':
                     System.out.println("--- Programa de cadastro encerrado ---\r");
@@ -52,7 +54,6 @@ public class PetShop {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(dataStr, fmt);
     }
-
 
     public static void popularCadastro() {
         System.out.println("Populando cadastro...");
@@ -96,25 +97,37 @@ public class PetShop {
         return contadorCod++;
     }
 
-    public static void cadastrarTutorPets() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Digite nome do tutor (vazio encerra cadastro tutor): ");
-        String nome = sc.nextLine();
-
-        System.out.println("Digite dia (dd), mês (mm) e ano (aaaa) de nascimento do tutor (separados por espaços) :\n");
-
-
-        System.out.println("Digite endereço do tutor/pet: :\n");
-
-
-        // TODO: Fazer o loop de cadastro
-        System.out.println("Digite nome do pet (vazio encerra cadastro pet):\n");
-
-
-        System.out.println("--- Pet cadastrado ---");
-
-
+    public static void cadastrarTutorPets(Scanner sc) {
+        while (true) {
+            System.out.println("Digite nome do tutor (vazio encerra cadastro tutor): ");
+            String nome = sc.nextLine();
+            if (nome.isEmpty()) break;
+            System.out.print("Digite dia (dd), mês (mm) e ano (aaaa) de nascimento do tutor (separados por espacos): ");
+            int d = sc.nextInt();
+            int m = sc.nextInt();
+            int a = sc.nextInt();
+            sc.nextLine();
+            if (!validaData(d, m, a)) {
+                System.out.println("Erro! cadastro encerrado: data invalida");
+                return;
+            }
+            LocalDate dataNasc = LocalDate.of(a, m, d);
+            System.out.println("Digite endereco do tutor/pet: ");
+            String endereco = sc.nextLine();
+            Tutor tutor = new Tutor(geraCodTutor(), nome, dataNasc, endereco);
+            while (true) {
+                System.out.println("Digite nome do pet (vazio encerra cadastro pet): ");
+                String nomePet = sc.nextLine().trim();
+                if (nomePet.isEmpty()) break;
+                System.out.print("Digite o tipo do pet: ");
+                String tipo = sc.nextLine().trim();
+                Pet pet = new Pet(nomePet, tipo);
+                tutor.add(pet);
+                System.out.println("Pet cadastrado com sucesso!");
+            }
+            tutores.add(tutor);
+            System.out.println("Tutor cadastrado com sucesso!");
+        }
     }
 
     public static void imprimirCadastro() {
@@ -129,12 +142,25 @@ public class PetShop {
         // procura tutor pelo código e exibe
     }
 
-    public static void excluirPorCodigo(int cod) {
-        // remove tutor e seus pets
+    public static void excluirPorCodigo(Scanner sc) {
+        System.out.print("Digite o codigo do tutor para excluir: ");
+        int cod = sc.nextInt();
+        sc.nextLine();
+        boolean excluir = false;
+        for (int i = 0; i<tutores.size(); i++) {
+            if (tutores.get(i).getCod() == cod) {
+                tutores.remove(i);
+                System.out.println("Tutor "+cod+" removido com sucesso!");
+                excluir = true;
+                break;
+            }
+        }
+        if (!excluir) {
+            System.out.println("Tutor "+cod+" não existe!");
+        }
     }
 
     private static boolean validaData(int d, int m, int a) {
-        // valida datas de nascimento
         if (d < 1 || m < 1 || m > 12 || a < 1) {
             System.out.println("Erro!, programa encerrado: Data Invalida");
             return false;
